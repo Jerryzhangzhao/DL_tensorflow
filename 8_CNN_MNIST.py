@@ -37,7 +37,7 @@ x3_fc = tf.nn.relu(tf.matmul(x2_conv_flat, wfc1) + bfc1)
 wfc2 = tf.Variable(tf.truncated_normal(shape=[1024, 10], stddev=0.1))
 bfc2 = tf.Variable(tf.constant(0.1, tf.float32, shape=[10]))
 
-prediction = tf.nn.relu(tf.matmul(x3_fc, wfc2) + bfc2)
+prediction = tf.nn.softmax(tf.matmul(x3_fc, wfc2) + bfc2)  # softmax
 
 # cost function
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=prediction))
