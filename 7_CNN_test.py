@@ -30,6 +30,10 @@ kernel = tf.reshape(k1, [3, 3, 1, 2], name='kernel')
 image = tf.reshape(i, [1, 4, 4, 1], name='image')
 
 res = tf.squeeze(tf.nn.conv2d(image, kernel, [1, 1, 1, 1], "VALID"))
+
+t = k[:,0]
+
 # VALID means no padding
 with tf.Session() as sess:
     print(sess.run(res))
+    print(sess.run(t))

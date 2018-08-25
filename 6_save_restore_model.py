@@ -123,7 +123,10 @@ with tf.Session() as sess:
     plt.plot(acc_step_list, test_acc_list)
     plt.show()
 
-
+# save model
+# saver.save(sess, "./modelSave/a_model.ckpt", global_step=epoch)
+# load model
+# saver.restore(sess,"./modelSave/a_model.ckpt")
 
 
 
