@@ -1,2 +1,2 @@
 # DL_tensorflow
-machine learning using TF
+Deep Learning with TF
