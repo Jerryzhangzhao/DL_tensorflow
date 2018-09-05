@@ -79,4 +79,4 @@ with tf.Session() as sess:
             img = Image.open(image_path)
             plt.imshow(img)
             plt.axis('off')
-            plt.show()
+            plt.show() 
