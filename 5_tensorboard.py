@@ -18,13 +18,13 @@ batch_size = 100
 def variable_summaries(var):
     with tf.name_scope("summaries"):
         mean = tf.reduce_mean(var)
-        tf.summary.scalar("mean", mean) # 平均值
+        tf.summary.scalar("mean", mean)  # 平均值
         with tf.name_scope("stddev"):
             stddev = tf.sqrt(tf.reduce_mean(tf.square(var-mean)))
-        tf.summary.scalar("stddev", stddev) # 标准差
-        tf.summary.scalar("max", tf.reduce_max(var)) # 最大值
-        tf.summary.scalar("min", tf.reduce_min(var)) # 最小值
-        tf.summary.histogram("histogram", var) # 直方图
+        tf.summary.scalar("stddev", stddev)  # 标准差
+        tf.summary.scalar("max", tf.reduce_max(var))  # 最大值
+        tf.summary.scalar("min", tf.reduce_min(var))  # 最小值
+        tf.summary.histogram("histogram", var)  # 直方图
 
 
 # 批次数目
@@ -100,7 +100,7 @@ with tf.Session() as sess:
         sess.run(tf.assign(lr, 0.001*(0.9**epoch)))
         for batch in range(m_batch):
             batch_xs, batch_ys = mnist.train.next_batch(batch_size)
-            #sess.run(train_step, feed_dict={x:batch_xs, y:batch_ys, keep_prob:1.0})
+            # sess.run(train_step, feed_dict={x:batch_xs, y:batch_ys, keep_prob:1.0})
             summary, _ = sess.run([merger, train_step], feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.0})
         writer.add_summary(summary, epoch)
 
@@ -117,11 +117,4 @@ with tf.Session() as sess:
     plt.plot(acc_step_list, train_acc_list)
     plt.plot(acc_step_list, test_acc_list)
     plt.show()
-
-
-
-
-
-
-
 

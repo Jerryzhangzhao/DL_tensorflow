@@ -7,7 +7,7 @@ mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
 # batch num and batch size
 batch_size = 100
 batch_num = mnist.train.num_examples // batch_size
-print("batch_num: "+str(batch_num))
+print("batch_num: " + str(batch_num))
 
 # network construction
 x = tf.placeholder(tf.float32, [None, 784])
@@ -39,11 +39,19 @@ bfc2 = tf.Variable(tf.constant(0.1, tf.float32, shape=[10]))
 
 prediction = tf.nn.softmax(tf.matmul(x3_fc, wfc2) + bfc2)  # softmax
 
+# learning rate decay
+# learning_rate = init_learning_rate*(decay_rate**(floor(global_step/decay_steps)))
+
+global_step = tf.Variable(0, trainable=False)  # global step
+init_learning_rate = 1e-4
+learning_rate = tf.train.exponential_decay(init_learning_rate, global_step=global_step
+                                           , decay_steps=100, decay_rate=0.9)
+
 # cost function
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=prediction))
 
 # optimizer
-train = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+train = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
 
 # prediction accuracy calculation
 correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
