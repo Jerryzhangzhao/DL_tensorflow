@@ -1,0 +1,171 @@
+node {
+  name: "x_input"
+  op: "Placeholder"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "shape"
+    value {
+      shape {
+        dim {
+          size: 7
+        }
+        dim {
+          size: 7
+        }
+      }
+    }
+  }
+}
+node {
+  name: "x_reshape/shape"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_INT32
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_INT32
+        tensor_shape {
+          dim {
+            size: 4
+          }
+        }
+        tensor_content: "\377\377\377\377\007\000\000\000\007\000\000\000\001\000\000\000"
+      }
+    }
+  }
+}
+node {
+  name: "x_reshape"
+  op: "Reshape"
+  input: "x_input"
+  input: "x_reshape/shape"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "Tshape"
+    value {
+      type: DT_INT32
+    }
+  }
+}
+node {
+  name: "w"
+  op: "Const"
+  attr {
+    key: "dtype"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "value"
+    value {
+      tensor {
+        dtype: DT_FLOAT
+        tensor_shape {
+          dim {
+            size: 3
+          }
+          dim {
+            size: 3
+          }
+          dim {
+            size: 1
+          }
+          dim {
+            size: 5
+          }
+        }
+        tensor_content: "M\022\">\327\r\346\275\253l!=\367\367J\275\300V\307\275g\231\213=\332\341\t>\273\301\326\275\270\230\005\275\330h@>\313\037X\2758\375\032\276N\265\010\274@\255\371<e\301\333<\237\335\264\275U\017\337=g+\336<\364\014>>\317\224\367=\367\251\350\275C\365*=\360\325\007>G\375\305\275\330\351\352\274\312\331x<\222\371\205\275\372\033.>x\317\235\275\352\207\203=]:\326\275\214!)\275\362\232\252=\353\023\215\275\233\342\200\275\303n\202<[V\217\275J5!= \265\336\274\0146\267<V\221==\372\237h\274\253\224\232=\226&\305=~\372F\275"
+      }
+    }
+  }
+}
+node {
+  name: "w/read"
+  op: "Identity"
+  input: "w"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "_class"
+    value {
+      list {
+        s: "loc:@w"
+      }
+    }
+  }
+}
+node {
+  name: "conv"
+  op: "Conv2D"
+  input: "x_reshape"
+  input: "w/read"
+  attr {
+    key: "T"
+    value {
+      type: DT_FLOAT
+    }
+  }
+  attr {
+    key: "data_format"
+    value {
+      s: "NHWC"
+    }
+  }
+  attr {
+    key: "dilations"
+    value {
+      list {
+        i: 1
+        i: 1
+        i: 1
+        i: 1
+      }
+    }
+  }
+  attr {
+    key: "padding"
+    value {
+      s: "SAME"
+    }
+  }
+  attr {
+    key: "strides"
+    value {
+      list {
+        i: 1
+        i: 1
+        i: 1
+        i: 1
+      }
+    }
+  }
+  attr {
+    key: "use_cudnn_on_gpu"
+    value {
+      b: true
+    }
+  }
+}
+versions {
+}
