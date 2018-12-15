@@ -50,12 +50,11 @@ def load_frozen_model():
     with tf.Graph().as_default() as graph:
         # import_graph_def to import a serialized GraphDef and extract the tensor, op,
         # then place them to the default graph
-        aa = tf.import_graph_def(graph_def=restored_graph_def,
+        tf.import_graph_def(graph_def=restored_graph_def,
                                  #input_map=None,
                                  #return_elements=None,
                                  name=""  # the name position arg can't be ignore
                                  )
-        print(aa)
 
     input_tensor = graph.get_tensor_by_name('x_input:0')
     conv_tensor = graph.get_tensor_by_name('conv:0')
