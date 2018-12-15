@@ -19,7 +19,7 @@ def save_graph_as_pbtxt():
         sess.run(conv, feed_dict={x_input: np.random.rand(7, 7)})
 
         graph_def = tf.get_default_graph().as_graph_def()
-        tf.train.write_graph(graph_def, './pbtxt/','graph.pbtxt', as_text=True)
+        tf.train.write_graph(graph_def, './pbtxt/', 'graph.pbtxt', as_text=True)
 
 
 def convert_pb_to_pbtxt(pb_filename):
@@ -31,13 +31,13 @@ def convert_pb_to_pbtxt(pb_filename):
         # import_graph_def to import a serialized GraphDef and extract the tensor, op,
         # then place them to the default graph
         tf.import_graph_def(graph_def=restored_graph_def,
-                                 #input_map=None,
-                                 #return_elements=None,
-                                 name=""  # the name position arg can't be ignore
-                                 )
-        
-        graph_def = tf.get_default_graph().as_graph_def()
-        tf.train.write_graph(graph_def, './pbtxt/','graph.pbtxt', as_text=True)
+                            # input_map=None,
+                            # return_elements=None,
+                            name=""  # the name position arg can't be ignore
+                            )
+
+        graph_def = graph.as_graph_def()
+        tf.train.write_graph(graph_def, './pbtxt/', 'graph.pbtxt', as_text=True)
 
 
 if __name__ == '__main__':
