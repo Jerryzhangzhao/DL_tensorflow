@@ -27,9 +27,10 @@ def save_model(model_path):
         # when using the model, we don't need to care the tensor name define in the original graph
         inputs = {'input0': tf.saved_model.utils.build_tensor_info(x_input)}
         outputs = {'output0': tf.saved_model.utils.build_tensor_info(conv)}
+        method_name = tf.saved_model.signature_constants.PREDICT_METHOD_NAME
 
         # builder a signature
-        my_signature = tf.saved_model.signature_def_utils.build_signature_def(inputs, outputs)
+        my_signature = tf.saved_model.signature_def_utils.build_signature_def(inputs, outputs, method_name)
 
         # add meta graph and variables
         builder.add_meta_graph_and_variables(sess, ['MODEL_TRAINING'], signature_def_map={'my_signature': my_signature})
@@ -64,7 +65,7 @@ def restore_model(model_path):
 
 if __name__ == '__main__':
     _model_path = './saved_model_builder/'
-    mode = 'mode_restore'  # 'mode_save' or 'mode_restore'
+    mode = 'mode_save'  # 'mode_save' or 'mode_restore'
     if mode == 'mode_save':
         save_model(_model_path)
     if mode == 'mode_restore':
