@@ -1,3 +1,10 @@
+---
+name: Bug Report
+about: 提交一个 Bug 报告
+title: '[BUG] '
+labels: bug
+assignees: ''
+---
 # CMAvatar Bug Report
 
 感谢反馈 CMAvatar 使用过程中遇到的问题。
